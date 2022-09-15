@@ -1,6 +1,7 @@
 //#define GLFW_INCLUDE_GLCOREARB
 
 #include "../../src/Manager/MainProc.h"
+#include "../../src/Manager/InputMgr.h"
 #include "../../src/MacroDef.h"
 #include "glad/glad.h"
 #include <GLFW/glfw3.h>
@@ -13,17 +14,15 @@
 
 using namespace CSE;
 
-float timeGetTime() {
-    long ms; // Milliseconds
-    int s;  // Seconds
-    struct timespec spec;
+using std::chrono::duration_cast;
+using std::chrono::milliseconds;
+using std::chrono::seconds;
+using std::chrono::system_clock;
 
-    clock_gettime(CLOCK_REALTIME, &spec);
+long long int timeGetTime() {
+    auto ms_since_epoch = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
 
-    s = spec.tv_sec * 1000;
-    ms = round(spec.tv_nsec / 1.0e6); // Convert nanoseconds to milliseconds
-
-    return ms + s;
+    return ms_since_epoch;
 }
 
 int main(void) {
@@ -51,8 +50,8 @@ int main(void) {
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    int width = 1024;
-    int height = 720;
+    int width = 1280;
+    int height = 400;
 
     /* Create a windowed mode window and its OpenGL context */
     window = glfwCreateWindow(width, height, "CSEngine", NULL, NULL);
@@ -67,6 +66,10 @@ int main(void) {
         std::cout << "Failed to initialize OpenGL context\n";
         return -1;
     }
+    InputMgr::SetCanvasSize(width, height);
+    glfwSetCursorPosCallback(window, [](GLFWwindow* window, double x, double y) {
+        InputMgr::CursorPositionCallback(x, y);
+    });
 
     printf("GL_VERSION  : %s\n", glGetString(GL_VERSION));
     printf("GL_RENDERER : %s\n", glGetString(GL_RENDERER));
@@ -75,11 +78,11 @@ int main(void) {
 
     mainProc->Init(width, height);
 
-    float elapsedTime = timeGetTime();
+    auto elapsedTime = timeGetTime();
 
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window)) {
-        float deltaTime = timeGetTime() - elapsedTime;
+        auto deltaTime = timeGetTime() - elapsedTime;
         // std::cout << deltaTime <<'\n';
         /* Render here */
         mainProc->Update(deltaTime);
