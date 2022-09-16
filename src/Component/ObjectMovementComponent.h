@@ -16,7 +16,7 @@ public:
     void Exterminate() override;
 
 private:
-    float m_speed = 0.2f;
+    float m_speed = 0.1f;
 
     float m_currentX = 0;
     float m_currentY = 0;

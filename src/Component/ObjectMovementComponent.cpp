@@ -1,5 +1,6 @@
 #include "../Manager/InputMgr.h"
 #include "ObjectMovementComponent.h"
+#include "Util/SafeLog.h"
 
 using namespace CSE;
 
@@ -11,12 +12,17 @@ void ObjectMovementComponent::Init() {
 }
 
 void ObjectMovementComponent::Tick(float elapsedTime) {
-    if(!m_input->IsMouseFocus()) return;
+//    if(!m_input->IsMouseFocus()) return;
 
-    m_currentX += (m_input->GetX() - m_currentX) * m_speed;
-    m_currentY += (m_input->GetY() - m_currentY) * m_speed;
+    auto moveX = (m_input->GetX() - m_currentX) * m_speed;
+    auto moveY = (m_input->GetY() - m_currentY) * m_speed;
 
-    gameObject->GetTransform()->m_rotation = flip.Rotated(Quaternion::AngleAxis(vec3{m_currentY, m_currentX, 0}, -0.5f));
+    m_currentX += moveX;
+    m_currentY += moveY;
+
+    gameObject->GetTransform()->m_rotation = gameObject->GetTransform()->m_rotation.Multiplied(
+            Quaternion::AngleAxis(vec3{0, 1, 0}, moveX)
+    );
 }
 
 void ObjectMovementComponent::Exterminate() {

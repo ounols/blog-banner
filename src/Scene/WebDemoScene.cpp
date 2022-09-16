@@ -33,7 +33,6 @@ void WebDemoScene::Init() {
     currentPlaneRenderComponent->SetMaterial(SResource::Create<SMaterial>("file:Material/ForFramebufferTest.mat"));
 //    const auto& script = plane->CreateComponent<CustomComponent>();
 //    script->SetClassName("Stormtrooper.script");
-    plane->CreateComponent<ObjectMovementComponent>();
 
     // Main Camera
     auto camera = new SGameObject("camera");
@@ -72,7 +71,8 @@ void WebDemoScene::Init() {
     model->GetTransform()->m_scale = vec3{ scaleValue, scaleValue * 1.12f, scaleValue };
 //    model->GetTransform()->m_rotation = Quaternion::AngleAxis(vec3{ 0, 0, 1 }, Pi);
     m_characterRoot->GetTransform()->m_position = vec3{ -100.f, 100.f, 0 };
-    m_characterRoot->GetTransform()->m_rotation = Quaternion::AngleAxis(vec3{ 0, 0, 1 }, Pi);
+//    m_characterRoot->GetTransform()->m_rotation = Quaternion::AngleAxis(vec3{ 0, 0, 1 }, Pi);
+    m_characterRoot->CreateComponent<ObjectMovementComponent>();
     charCamera->SetTarget(m_characterRoot);
     {
         const auto& renderComp = GetRenderComponent(*model);
@@ -84,13 +84,14 @@ void WebDemoScene::Init() {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glDisable(GL_CULL_FACE);
     m_upperQuaternion = Quaternion::AngleAxis(vec3{ -1, 0, 0 }, 0.2f);
+    m_characterRoot->GetTransform()->m_rotation = m_upperQuaternion;
 }
 
 void WebDemoScene::Tick(float elapsedTime) {
     // 현재 레거시 모드로 돌리기 때문에 모든 오브젝트들은 엔진 코어에서 업데이트 됩니다.
     // 따라서 이 곳에 작성할 코드는 없습니다! 예외 상황일 때 사용해도 무방한 함수입니다.
-    m_characterRoot->GetTransform()->m_rotation = m_upperQuaternion
-            .Multiplied(Quaternion::AngleAxis(vec3{0, 1, 0}, elapsedTime / 5000));
+    m_characterRoot->GetTransform()->m_rotation = m_characterRoot->GetTransform()->m_rotation
+            .Multiplied(Quaternion::AngleAxis(vec3{0, 1, 0}, 0.002f));
 }
 
 void WebDemoScene::Destroy() {
