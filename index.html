@@ -1,6 +1,4 @@
-<!doctype html>
-<html lang="en-us">
-<head>
+<html lang="en-us"><head>
   <meta charset="utf-8">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>CSEngine Demo</title>
@@ -13,21 +11,19 @@
     canvas.emscripten { border: 0px none; background-color: #ffffff00; }
   </style>
 </head>
-<body>
-<div class="spinner" id='spinner' hidden=1></div>
-<div class="emscripten" id="status" hidden=1></div>
-
-<div class="emscripten">
-  <progress value="0" max="100" id="progress" hidden=1></progress>
-</div>
+<body style="margin-top: 0px;margin-left: 0px;margin-bottom: 0px;margin-right: 0px;">
+<div class="spinner" id="spinner" hidden="1"></div>
+<div class="emscripten" id="status" hidden="1"></div>
 
 
-<div class="emscripten_border" style="display: flex;justify-content: center;align-items: center;">
-  <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1 width="600" height="250">
+
+
+<div class="emscripten_border" style="display: block;justify-content: center;align-items: center;width: 100vw;height: 100vh;">
+  <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex="-1" width="1280" height="400">
   </canvas>
 </div>
 
-<script type='text/javascript'>
+<script type="text/javascript">
   var statusElement = document.getElementById('status');
   var progressElement = document.getElementById('progress');
   var spinnerElement = document.getElementById('spinner');
@@ -91,6 +87,6 @@
     };
   };
 </script>
-<script async type="text/javascript" src="AvatarRenderer.js"></script>
-</body>
-</html>
+<script async="" type="text/javascript" src="AvatarRenderer.js"></script>
+
+</body></html>
