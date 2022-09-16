@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en-us"><head>
   <meta charset="utf-8">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -8,7 +9,7 @@
     }
     /*.emscripten { padding-right: 0; margin-left: auto; margin-right: auto; display: block; }*/
     /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
-    canvas.emscripten { border: 0px none; background-color: #ffffff00; }
+    canvas.emscripten { width: 100vw;height: auto; border: 0px none; background-color: #ffffff00; }
   </style>
 </head>
 <body style="margin-top: 0px;margin-left: 0px;margin-bottom: 0px;margin-right: 0px;">
@@ -19,7 +20,7 @@
 
 
 <div class="emscripten_border" style="display: block;justify-content: center;align-items: center;width: 100vw;height: 100vh;">
-  <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex="-1" style="width: 100vw;height: auto;" width="1280" height="400">
+  <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex="-1" width="1280" height="400">
   </canvas>
 </div>
 
