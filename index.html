@@ -11,12 +11,18 @@
     /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
     canvas.emscripten { position: absolute;z-index: 10;width: auto;height: 100vh; border: 0px none; background-color: #ffffff00; }
   </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500&display=swap" rel="stylesheet">
 </head>
 <body style="margin-top: 0px;margin-left: 0px;margin-bottom: 0px;margin-right: 0px;">
 <div class="spinner" id="spinner" hidden="1"></div>
 <div class="emscripten" id="status" hidden="1"></div>
 
-<div style="display: flex;justify-content: center;align-items: center;width: 100vw;height: 100vh;z-index: 0;position: absolute;">Loading 3D Scene...</div>
+<div style="display: flex;justify-content: center;align-items: center;width: 100vw;height: 100vh;z-index: 0;position: absolute;">
+  <img src="loading.png" style="filter: blur(8px);-webkit-filter: blur(8px);" width="auto" height="100%">
+  <span style="z-index: 1;position: absolute;font-family: 'Barlow Condensed', sans-serif;font-size: xxx-large;text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;color: white;">Loading 3D Banner...</span>
+</div>
 
 <div class="emscripten_border" style="display: flex;justify-content: center;align-items: center;width: 100vw;height: 100vh;">
   <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex="-1" width="1280" height="400">
